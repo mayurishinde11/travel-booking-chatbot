@@ -11,6 +11,8 @@ body {
     transition: all 0.3s ease;
 }
 
+
+
 /* 🎬 FULLSCREEN VIDEO */
 #bgVideo {
     position: fixed;
@@ -230,4 +232,34 @@ body {
     visibility: visible;
     opacity: 1;
     transform: translateY(0);
+}   
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+
+    background: url("bg.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* dark overlay for readability */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    z-index: 0;
+}
+
+/* keep content above background */
+.login-container,
+.chat-container,
+.chatbox,
+.card{
+    position: relative;
+    z-index: 1;
 }
