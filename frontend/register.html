@@ -1,27 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Register</title>
+    <meta charset="UTF-8">
+    <title>Register - Smart Travel Assistant</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+        }
+
+        /* center container */
+        .container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* glass box */
+        .box {
+            width: 350px;
+            padding: 30px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        button {
+            width: 95%;
+            padding: 12px;
+            margin-top: 10px;
+            background: linear-gradient(45deg, #ff6b00, #ff8c00);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .msg {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #00ffcc;
+        }
+    </style>
 </head>
 
 <body>
 
-<h2>Register</h2>
+<div class="container">
+    <div class="box">
 
-<input type="text" id="name" placeholder="Name"><br>
-<input type="email" id="email" placeholder="Email"><br>
-<input type="password" id="password" placeholder="Password"><br>
+        <h2>🌍 Register</h2>
 
-<button onclick="register()">Register</button>
+        <input type="text" id="name" placeholder="Full Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
 
-<!-- ✅ SCRIPT MUST BE AT BOTTOM -->
+        <button onclick="register()">Register</button>
+
+        <div class="msg" id="msg"></div>
+
+    </div>
+</div>
+
+<!-- ================= SCRIPT ================= -->
 <script>
 function register() {
-    console.log("Register clicked");  // debug check
 
     fetch("http://127.0.0.1:5000/register", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({
             name: document.getElementById("name").value,
             email: document.getElementById("email").value,
@@ -30,7 +107,12 @@ function register() {
     })
     .then(res => res.json())
     .then(data => {
-        alert(data.message);
+
+        console.log(data);
+
+        // 🔁 direct redirect to login page
+        window.location.href = "login.html";
+
     })
     .catch(err => {
         console.error(err);

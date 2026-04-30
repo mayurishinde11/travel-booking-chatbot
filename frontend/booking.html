@@ -1,52 +1,160 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Booking</title>
+<meta charset="UTF-8">
+<title>Payment - Smart Travel Assistant</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+}
+
+/* center container */
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* glass card */
+.card {
+    width: 380px;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+.info {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.amount {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #00e676;
+}
+
+/* button */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #ff6b00, #ff8c00);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* success message */
+.success {
+    display: none;
+    margin-top: 15px;
+    color: #00e676;
+}
+</style>
 </head>
 
 <body>
+<body>
 
-<h2>Confirm Your Trip</h2>
+<!-- ✅ BACK BUTTON (ADD HERE AT TOP) -->
+<button class="back-btn" onclick="goHome()">Back</button>
 
-<!-- ✅ PAY BUTTON -->
-<button onclick="payNow()">Pay Now</button>
+<!-- Your existing content starts here -->
 
-<!-- ✅ RAZORPAY SCRIPT -->
+
+<div id="chatbox"></div>
+
+<!-- rest of your page content -->
+<div class="container">
+    <div class="card">
+
+        <h2>💳 Payment Page</h2>
+        <p class="info">Complete your booking securely</p>
+
+        <div class="amount">
+            ₹<span id="amount">0</span>
+        </div>
+
+        <button onclick="payNow()">Pay Now</button>
+
+        <div class="success" id="successMsg">
+            Payment Successful 🎉
+        </div>
+
+    </div>
+</div>
+
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-<!-- ✅ YOUR SCRIPT -->
 <script>
-async function payNow() {
+let trip = JSON.parse(localStorage.getItem("trip") || "{}");
 
-    let trip = JSON.parse(localStorage.getItem("trip"));
+// show amount
+document.getElementById("amount").innerText = trip.budget || 0;
 
-    let res = await fetch("http://127.0.0.1:5000/create-order", {
+function payNow() {
+
+    fetch("http://127.0.0.1:5000/create-order", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("token")
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({ amount: trip.budget })
+    })
+    .then(res => res.json())
+    .then(order => {
+
+        let options = {
+            key: "rzp_test_SjOHnMshaOQG0S",
+            amount: order.amount,
+            currency: "INR",
+            order_id: order.id,
+
+            handler: function () {
+                document.getElementById("successMsg").style.display = "block";
+
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1500);
+            }
+        };
+
+        let rzp = new Razorpay(options);
+        rzp.open();
     });
-
-    let order = await res.json();
-
-    let options = {
-        key: "rzp_test_xxxxx",   // ✅ PUT YOUR REAL KEY HERE
-        amount: order.amount,
-        currency: "INR",
-        order_id: order.id,
-
-        handler: function () {
-            alert("Payment Successful!");
-            window.location.href = "dashboard.html";
-        }
-    };
-
-    new Razorpay(options).open();
 }
 </script>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script src="app.js"></script>
+
+<script>
+function goHome() {
+    window.location.href = "index.html";
+}
+</script>
 </body>
 </html>

@@ -263,3 +263,22 @@ body::before {
     position: relative;
     z-index: 1;
 }
+
+.back-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 16px ;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 9999;
+    width: auto
+    
+}
+
+.back-btn:hover {
+    background-color: #e60000;
+}

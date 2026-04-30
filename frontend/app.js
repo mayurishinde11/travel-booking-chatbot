@@ -214,3 +214,7 @@ function logout() {
         // 👉 change this if your login file name is different
     }, 1200);
 }
+
+function goHome() {
+    window.location.href = "index.html";
+}
