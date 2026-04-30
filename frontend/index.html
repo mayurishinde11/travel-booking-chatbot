@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body>
+
+<script>
+if (!localStorage.getItem("token")) {
+    window.location.href = "login.html";
+}
+</script>
+
+<h2>Travel Chatbot ✈</h2>
+
+<div class="chat-container">
+
+    <!-- 🌍 Destination -->
+    <select id="destination">
+        <option value="">Select Destination</option>
+        <option>Goa</option>
+        <option>Manali</option>
+        <option>Shimla</option>
+        <option>Kerala</option>
+        <option>Jaipur</option>
+    </select>
+
+    <!-- 🧭 Trip Type -->
+    <select id="type">
+        <option value="">Trip Type</option>
+        <option>Nature</option>
+        <option>Adventure</option>
+        <option>Hill Station</option>
+        <option>Temple</option>
+        <option>Beach</option>
+    </select>
+
+    <!-- 💰 Budget -->
+    <select id="budget">
+        <option value="">Select Budget</option>
+        <option value="5000">Under ₹5,000</option>
+        <option value="10000">₹5,000 - ₹10,000</option>
+        <option value="20000">₹10,000 - ₹20,000</option>
+        <option value="50000">Above ₹20,000</option>
+    </select>
+
+    <!-- 🚆 Travel Mode -->
+    <select id="mode">
+        <option value="">Travel Mode</option>
+        <option>Flight</option>
+        <option>Train</option>
+        <option>Bus</option>
+    </select>
+
+    <!-- 🍴 Food Preference -->
+    <select id="food">
+        <option value="">Food Preference</option>
+        <option>Veg</option>
+        <option>Non-Veg</option>
+        <option>Both</option>
+    </select>
+
+    <!-- 🔘 BUTTON -->
+    <button onclick="startChat()">Find Trip</button>
+
+</div>
+
+<!-- 💬 CHATBOX -->
+<div id="chatbox" class="chatbox"></div>
+
+<!-- 🧾 BOOKING SUMMARY -->
+<div id="bookingSummary" class="card" style="display: none;">
+    <h3>Booking Summary</h3>
+    <p id="summaryDestination"></p>
+    <p id="summaryType"></p>
+    <p id="summaryBudget"></p>
+    <p id="summaryMode"></p>
+    <p id="summaryFood"></p>
+</div>
+ 
+</div>
+
+<script src="app.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</body>
+</html>

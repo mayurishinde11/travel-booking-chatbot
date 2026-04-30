@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+</head>
+
+<body>
+
+<h2>Register</h2>
+
+<input type="text" id="name" placeholder="Name"><br>
+<input type="email" id="email" placeholder="Email"><br>
+<input type="password" id="password" placeholder="Password"><br>
+
+<button onclick="register()">Register</button>
+
+<!-- ✅ SCRIPT MUST BE AT BOTTOM -->
+<script>
+function register() {
+    console.log("Register clicked");  // debug check
+
+    fetch("http://127.0.0.1:5000/register", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Server error");
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>My Bookings</h2>
+<div id="list"></div>
+
+<script>
+async function load() {
+    let res = await fetch("http://127.0.0.1:5000/my-bookings", {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+    });
+
+    let data = await res.json();
+
+    let html = "";
+    data.forEach(b => {
+        html += `<p>${b.destination} - ₹${b.budget} - ${b.payment_status}</p>`;
+    });
+
+    document.getElementById("list").innerHTML = html;
+}
+
+load();
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

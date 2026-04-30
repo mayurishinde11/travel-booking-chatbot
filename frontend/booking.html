@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking</title>
+</head>
+
+<body>
+
+<h2>Confirm Your Trip</h2>
+
+<!-- ✅ PAY BUTTON -->
+<button onclick="payNow()">Pay Now</button>
+
+<!-- ✅ RAZORPAY SCRIPT -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<!-- ✅ YOUR SCRIPT -->
+<script>
+async function payNow() {
+
+    let trip = JSON.parse(localStorage.getItem("trip"));
+
+    let res = await fetch("http://127.0.0.1:5000/create-order", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        body: JSON.stringify({ amount: trip.budget })
+    });
+
+    let order = await res.json();
+
+    let options = {
+        key: "rzp_test_xxxxx",   // ✅ PUT YOUR REAL KEY HERE
+        amount: order.amount,
+        currency: "INR",
+        order_id: order.id,
+
+        handler: function () {
+            alert("Payment Successful!");
+            window.location.href = "dashboard.html";
+        }
+    };
+
+    new Razorpay(options).open();
+}
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
