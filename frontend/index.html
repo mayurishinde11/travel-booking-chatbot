@@ -13,9 +13,16 @@ if (!localStorage.getItem("token")) {
     window.location.href = "login.html";
 }
 </script>
+#..........................................................................
+<div style="display:flex; justify-content:space-between; align-items:center;">
+    <h2>Travel Chatbot ✈</h2>
+    <button onclick="logout()" class="logout-btn">
+        Logout
+    </button>
+</div>
 
-<h2>Travel Chatbot ✈</h2>
-
+    #...........................................................................
+</div>
 <div class="chat-container">
 
     <!-- 🌍 Destination -->
@@ -82,6 +89,12 @@ if (!localStorage.getItem("token")) {
 </div>
  
 </div>
+
+<!-- LOGOUT POPUP -->
+
+<button class="logout-btn" onclick="logout()">Logout</button>
+<div id="toast" class="toast"></div>
+
 
 <script src="app.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

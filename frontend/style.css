@@ -49,7 +49,6 @@ body::before {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    
 }
 
 /* 🔐 LOGIN BOX */
@@ -91,7 +90,6 @@ body::before {
 
 /* ================= CHAT SECTION ================= */
 
-/* Chat container */
 .chat-container {
     display: flex;
     flex-direction: column;
@@ -100,13 +98,11 @@ body::before {
     gap: 10px;
 }
 
-/* Dropdown styling */
 .chat-container select {
     padding: 10px;
     border-radius: 8px;
 }
 
-/* Chat button */
 .chat-container button {
     padding: 12px;
     background: #ff6b00;
@@ -142,7 +138,6 @@ body::before {
 
     box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 
-    /* animation */
     transform: translateY(20px);
     opacity: 0;
     animation: fadeInUp 0.6s ease forwards;
@@ -165,8 +160,7 @@ body::before {
     }
 }
 
-/* ================= GLOBAL BUTTON (FIXED) ================= */
-/* (Used only if button is outside login/chat) */
+/* ================= GLOBAL BUTTON ================= */
 
 button {
     background: linear-gradient(45deg, #ff6b00, #ff8c00);
@@ -180,4 +174,60 @@ button {
 button:hover {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(255,107,0,0.5);
+}
+
+/* ================= LOGOUT BUTTON ================= */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ================= LOGOUT BUTTON ================= */
+.logout-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 9999;
+}
+
+.logout-btn:hover {
+    background-color: #e60000;
+}
+
+/* ================= TOAST NOTIFICATION ================= */
+.toast {
+    visibility: hidden;
+    min-width: 260px;
+    background: linear-gradient(135deg, #00c853, #00e676);
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    padding: 14px 18px;
+
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    z-index: 99999;
+
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s ease;
+}
+
+/* Show animation */
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
 }

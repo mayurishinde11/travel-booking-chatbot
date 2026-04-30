@@ -151,3 +151,28 @@ async function payNow() {
 
     new Razorpay(options).open();
 }
+
+function showToast(message) {
+    let toast = document.getElementById("toast");
+    toast.innerText = message;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+}
+
+function logout() {
+    // Optional: clear session / login data
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // Show success message
+    showToast("You are logged out successfully");
+
+    // Redirect to login page after short delay
+    setTimeout(() => {
+        window.location.href = "login.html"; 
+        // 👉 change this if your login file name is different
+    }, 1200);
+}
