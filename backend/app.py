@@ -3,7 +3,7 @@ from flask_cors import CORS
 from db import get_db, init_db
 from auth import hash_password, verify_password, create_token
 from config import RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET
-
+from db import get_booking
 import jwt
 from functools import wraps
 import razorpay
@@ -137,6 +137,19 @@ def my_bookings(current_user):
     rows = cur.fetchall()
 
     return jsonify([dict(row) for row in rows])
+
+@app.route("/get-booking/<booking_id>")
+def get_booking_api(booking_id):
+    row = get_booking(booking_id)
+
+    return {
+        "booking_id": row[1],
+        "user": row[2],
+        "city": row[3],
+        "amount": row[4],
+        "payment_id": row[5],
+        "status": row[7]
+    }
 
 
 # ---------------- RUN APP ----------------

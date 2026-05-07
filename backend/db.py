@@ -34,3 +34,15 @@ def init_db():
 
     conn.commit()
     conn.close()
+
+# ✅ GET SINGLE BOOKING (NEW FUNCTION - ADD ONLY)
+def get_booking(booking_id):
+    conn = get_db()
+    cur = conn.cursor()
+
+    # ⚠️ using existing columns only (no schema change)
+    cur.execute("SELECT * FROM bookings WHERE id=?", (booking_id,))
+    row = cur.fetchone()
+
+    conn.close()
+    return row

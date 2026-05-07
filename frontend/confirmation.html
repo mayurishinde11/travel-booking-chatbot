@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Booking Confirmation</title>
+</head>
+
+<body style="font-family:Poppins; text-align:center">
+
+<h2>🎉 Booking Confirmed</h2>
+
+<div id="details"></div>
+
+<script>
+const id = window.location.pathname.split("/").pop();
+
+fetch("http://127.0.0.1:5000/get-booking/" + id)
+.then(res => res.json())
+.then(data => {
+    document.getElementById("details").innerHTML = `
+        <p><b>Booking ID:</b> ${data.booking_id}</p>
+        <p><b>User:</b> ${data.user}</p>
+        <p><b>City:</b> ${data.city}</p>
+        <p><b>Amount:</b> ₹${data.amount}</p>
+        <p><b>Payment ID:</b> ${data.payment_id}</p>
+        <p><b>Status:</b> ${data.status}</p>
+    `;
+});
+</script>
+
+</body>
+</html>
