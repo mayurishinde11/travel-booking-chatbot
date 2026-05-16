@@ -138,18 +138,18 @@ def my_bookings(current_user):
 
     return jsonify([dict(row) for row in rows])
 
-# @app.route("/get-booking/<booking_id>")
-# def get_booking_api(booking_id):
-#     row = get_booking(booking_id)
+@app.route("/get-booking/<booking_id>")
+def get_booking_api(booking_id):
+    row = get_booking(booking_id)
 
-#     return {
-#         "booking_id": row[1],
-#         "user": row[2],
-#         "city": row[3],
-#         "amount": row[4],
-#         "payment_id": row[5],
-#         "status": row[7]
-#     }
+    return {
+        "booking_id": row[1],
+        "user": row[2],
+        "city": row[3],
+        "amount": row[4],
+        "payment_id": row[5],
+        "status": row[7]
+    }
 
 
 # ---------------- RUN APP ----------------
